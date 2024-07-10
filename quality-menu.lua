@@ -174,6 +174,9 @@ end
 opts.font_size = tonumber(opts.style_ass_tags:match('\\fs(%d+%.?%d*)')) or mp.get_property_number('osd-font-size') or 25
 opts.curtain_opacity = math.max(math.min(opts.curtain_opacity, 1), 0)
 
+local locale = {}
+function t(text) return locale[text] or text end
+
 ---@param input string
 ---@param separator string
 ---@return string[]
@@ -926,7 +929,7 @@ end
 ---@param menu_type UIState
 local function uosc_menu_open(formats, active_format, menu_type)
     local menu = {
-        title = menu_type.type_capitalized,
+        title = t(menu_type.type_capitalized),
         items = {},
         type = 'quality-menu-' .. menu_type.name,
         keep_open = true,
@@ -954,7 +957,7 @@ local function uosc_menu_open(formats, active_format, menu_type)
     end
 
     menu.items[#menu.items + 1] = {
-        title = 'Disabled',
+        title = t('Disabled'),
         italic = true,
         muted = true,
         hint = '—',
@@ -1276,3 +1279,6 @@ mp.register_script_message('uosc-version', function(version)
     end)
 end)
 mp.commandv('script-message-to', 'uosc', 'get-version', mp.get_script_name())
+
+mp.commandv('script-message-to', 'uosc', 'get-locale', mp.get_script_name())
+mp.register_script_message('uosc-locale', function(json) locale = utils.parse_json(json) end)
