@@ -800,17 +800,6 @@ local function uosc_menu_open(formats, active_format, menu_type)
     }
 
     menu.items[#menu.items + 1] = {
-        title = menu_type.to_other_type.type_capitalized,
-        italic = true,
-        bold = true,
-        hint = 'open menu',
-        value = {
-            'script-message-to',
-            script_name,
-            menu_type.to_other_type.type .. '_formats_toggle',
-        },
-    }
-    menu.items[#menu.items + 1] = {
         title = 'Disabled',
         italic = true,
         muted = true,
