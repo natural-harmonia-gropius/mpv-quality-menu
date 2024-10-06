@@ -799,21 +799,6 @@ local function uosc_menu_open(formats, active_format, menu_type)
         }
     }
 
-    menu.items[#menu.items + 1] = {
-        title = 'Disabled',
-        italic = true,
-        muted = true,
-        hint = '—',
-        active = active_format == '',
-        value = {
-            'script-message-to',
-            script_name,
-            menu_type.type .. '-format-set',
-            current_url,
-            '',
-        }
-    }
-
     for _, format in ipairs(formats) do
         menu.items[#menu.items + 1] = {
             title = format.title,
@@ -828,6 +813,21 @@ local function uosc_menu_open(formats, active_format, menu_type)
             }
         }
     end
+
+    menu.items[#menu.items + 1] = {
+        title = 'Disabled',
+        italic = true,
+        muted = true,
+        hint = '—',
+        active = active_format == '',
+        value = {
+            'script-message-to',
+            script_name,
+            menu_type.type .. '-format-set',
+            current_url,
+            '',
+        }
+    }
 
     uosc_show_menu(menu, menu_type)
     destructor = function()
